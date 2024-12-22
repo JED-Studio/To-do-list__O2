@@ -43,12 +43,12 @@ export default defineComponent({
 <template>
   <li class="to-do-list-o2__task">
     <div class="to-do-list-o2__checkbox-p">
-      <input type="checkbox" name="checkbox" @click="toggleCheckbox()" />
+      <input type="checkbox" name="checkbox" :checked="completed" @click="toggleCheckbox()" />
       <p v-if="!isEditing">{{ text }}</p>
       <input v-else v-model="editedText" @keyup.enter="edit" />
     </div>
     <div class="to-do-list-o2__time-icons">
-      <p class="to-do-list-o2__time">03:00-16:00</p>
+      <!--<p class="to-do-list-o2__time">03:00-16:00</p>-->
       <div class="to-do-list-o2__icons">
         <i class="bi bi-pencil" @click="edit()"></i>
         <i class="bi bi-trash3" @click="remove()"></i>

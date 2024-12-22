@@ -39,8 +39,9 @@ export default defineComponent({
 <template>
   <h2 class="to-do-list-o2__title-1">Good Morning, Roma!</h2>
   <p class="to-do-list-o2__date">
-    Today, Wed 6 July 2024{{ formattedMonth }}{{ formatteNumber }} {{ formattedYear
-    }}{{ formattedTime }}
+    Today, Wed 6 July 2024
+    <!--{{ formattedMonth }}{{ formatteNumber }} {{ formattedYear
+    }}{{ formattedTime }}-->
   </p>
 </template>
 

@@ -16,6 +16,7 @@ export default defineComponent({
 
     const toggleSwiper = () => {
       emit('toggleSwiper')
+      emit('update:filter', 'swiper')
     }
 
     return { changeFilter, toggleSwiper }
@@ -39,7 +40,7 @@ export default defineComponent({
         Done
         <p>{{ itemDone }}</p>
       </li>
-      <li @click="toggleSwiper()">Swiper</li>
+      <li :class="{ gold: filterd === 'swiper' }" @click="toggleSwiper()">Swiper</li>
     </ul>
   </aside>
 </template>

@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import AppFilters from './components/AppFilters.vue'
 import AppMain from './components/AppMain.vue'
 
@@ -16,9 +16,18 @@ export default defineComponent({
     const itemActive = ref(0)
     const itemDone = ref(0)
 
+    onMounted(() => {
+      const savedFilter = localStorage.getItem('filter')
+      if (savedFilter) {
+        filter.value = savedFilter
+        appRouter.value = savedFilter === 'swiper'
+      }
+    })
+
     const updateFilter = (newFilter) => {
       filter.value = newFilter
-      appRouter.value = false
+      appRouter.value = newFilter === 'swiper'
+      localStorage.setItem('filter', newFilter)
     }
 
     const toggleSwiper = () => {

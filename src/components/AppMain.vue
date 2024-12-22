@@ -2,11 +2,13 @@
 import { defineComponent, ref, computed, watch, onMounted } from 'vue'
 import AppMainList from './AppMainList.vue'
 import AppMainTime from './AppMainTime.vue'
+import AppSwiper from './AppSwiper.vue'
 
 export default defineComponent({
   components: {
     AppMainList,
     AppMainTime,
+    AppSwiper,
   },
 
   props: {
@@ -25,12 +27,18 @@ export default defineComponent({
       }
     }
 
+    const textRemove = () => {
+      textAdd.value = ''
+    }
+
     const push = () => {
-      items.value.push({
-        id: Date.now(),
-        text: textAdd.value,
-        completed: false,
-      })
+      if (textAdd.value !== '') {
+        items.value.push({
+          id: Date.now(),
+          text: textAdd.value,
+          completed: false,
+        })
+      }
       textAdd.value = ''
       localStorage.setItem('items', JSON.stringify(items.value))
     }
@@ -85,7 +93,7 @@ export default defineComponent({
       itemAll,
       textAdd,
       itemDone,
-
+      textRemove,
       itemActive,
       updateText,
       removeItem,
@@ -98,39 +106,45 @@ export default defineComponent({
 </script>
 
 <template>
-  <main v-if="!appRouter" class="to-do-list-o2__main">
-    <div class="to-do-list-o2__main-flex">
-      <AppMainTime />
+  <main class="to-do-list-o2__main_flex">
+    <div v-if="!appRouter" class="to-do-list-o2__main">
+      <div class="to-do-list-o2__main-flex">
+        <AppMainTime />
 
-      <ul class="to-do-list-o2__tasks">
-        <TransitionGroup name="list" tag="ul">
-          <AppMainList
-            v-for="item in filteredTasks"
-            :key="item.id"
-            :text="item.text"
-            :id="item.id"
-            :completed="item.completed"
-            @remove="removeItem"
-            @toggle-checkbox="toggleCheckbox"
-            @update-text="updateText"
-          />
-        </TransitionGroup>
-      </ul>
-    </div>
-    <div class="to-do-list-o2__add">
-      <div class="to-do-list-o2__chat">
-        <i class="bi bi-x-lg"></i>
+        <ul class="to-do-list-o2__tasks">
+          <TransitionGroup name="list" tag="ul">
+            <AppMainList
+              v-for="item in filteredTasks"
+              :key="item.id"
+              :text="item.text"
+              :id="item.id"
+              :completed="item.completed"
+              @remove="removeItem"
+              @toggle-checkbox="toggleCheckbox"
+              @update-text="updateText"
+            />
+          </TransitionGroup>
+        </ul>
+      </div>
+      <div class="to-do-list-o2__add">
+        <div class="to-do-list-o2__chat">
+          <i class="bi bi-x-lg" @click="textRemove()"></i>
 
-        <input class="to-do-list-o2__input" name="text" v-model="textAdd" @keyup.enter="push" />
-        <i class="bi bi-send" @click="push"></i>
+          <input class="to-do-list-o2__input" name="text" v-model="textAdd" @keyup.enter="push" />
+          <i class="bi bi-send" @click="push"></i>
+        </div>
       </div>
     </div>
+    <div v-if="appRouter" class="to-do-list-o2__main"><AppSwiper /></div>
   </main>
-  <main v-if="appRouter" class="to-do-list-o2__main">velvklebm lekmblek</main>
 </template>
 
 <style>
-.list-move, /* apply transition to moving elements */
+.to-do-list-o2__main_flex {
+  width: 100%;
+}
+
+.list-move,
 .list-enter-active,
 .list-leave-active {
   transition: all 0.5s ease;
@@ -148,6 +162,7 @@ export default defineComponent({
 
 .to-do-list-o2__main {
   width: 100%;
+  height: 100vh;
   padding: 4rem 9rem;
 
   display: flex;
