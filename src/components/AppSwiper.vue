@@ -1,30 +1,30 @@
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   setup() {
-    const images = [
+    const images = ref([
       {
         id: 1,
-        imageUrl: 'public/i (1).webp',
+        imageUrl: 'image/god.jpg',
       },
       {
         id: 2,
-        imageUrl: 'public/i (1).webp',
+        imageUrl: 'image/god.jpg',
       },
       {
         id: 3,
-        imageUrl: 'public/i (1).webp',
+        imageUrl: 'image/god.jpg',
       },
       {
         id: 4,
-        imageUrl: 'public/i (1).webp',
+        imageUrl: 'image/god.jpg',
       },
       {
         id: 5,
-        imageUrl: 'public/i (1).webp',
+        imageUrl: 'image/god.jpg',
       },
-    ]
+    ])
 
     return {
       images,
